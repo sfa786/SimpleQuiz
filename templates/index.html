@@ -1,0 +1,79 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css'%}">
+    <script src="{% static 'jquery.min.js'%}"> </script>
+    <script src="{% static 'bootstrap.min.js'%}"> </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz</title>
+    <script>
+        $(document).ready(function(){
+            $("#ss").click(function(){
+                $(".extra").show();
+                $(".extra").attr("disabled",true);
+            });
+        });
+
+
+
+        function getanswers()
+        {
+            document.getElementById("UserAnswer").innerHTML = "";
+            var e =document.getElementsByTagName("input");
+            for (i=0;i<=e.length;i++)
+            {
+                if (e[i].type=="radio")
+                {
+                    if(e[i].checked)
+                    {
+                        document.getElementById("UserAnswer").innerHTML+="Q "+e[i].name+ "The answer You Given is :"+e[i].value+"<br>";
+                    }
+                }
+            }
+        }
+
+    </script>
+
+
+</head>
+<body>
+    <div class="container">
+        <h1 style="color:brown">Simple Quiz System Assigment [shafin]</h1>
+        <hr>
+        <div>
+            {% for i in exam %}
+            <table>
+                <tr>
+                    <td class="text-primary">{{i.id}} ) {{i.Question}} ?</td>
+                </tr>
+                <tr>
+                    <td><input type = "radio" class="extra" name = {{i.id}} id = "Option1" value ="{{i.option1}}">{{i.option1}} </td>
+                </tr>
+
+                <tr>
+                    <td><input type = "radio" class="extra" name = {{i.id}} id = "Option2" value ="{{i.option2}}">{{i.option2}} </td>
+                </tr>
+
+                <tr>
+                    <td><input type = "radio" class="extra" name = {{i.id}} id = "Option3" value ="{{i.option3}}">{{i.option3}} </td>
+                </tr>
+
+                <tr>
+                    <td><input type = "radio" class="extra" name = {{i.id}} id = "Option4" value ="{{i.option4}}">{{i.option4}} </td>
+                </tr>
+
+                <tr>
+                    <td><label id="CorrectAns" class="extra" style="display: none; color:green">{{i.CorrectAns}} </td>
+                </tr>
+            </table>
+            {% endfor %}
+            <input type="submit" class="btn btn-success" value="submit" id="ss" onclick="getanswers()">
+            <br>
+            <b id="UserAnswer"></b>
+        </div>
+    </div>
+</body>
+</html>
